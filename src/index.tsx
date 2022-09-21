@@ -6,8 +6,10 @@ import createSagaMiddleware from 'redux-saga';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import './index.css';
-import {rootReducer} from './store/reducers'
-import {rootSaga} from './store/saga'
+import { rootReducer } from './store/reducers';
+import {userPostsFetchRequestedWatcherSaga} from './store/sagaActionChannel'
+import {rootSaga} from "./store/saga";
+import {loginFlowSaga} from './store/sagasLoginFlow';
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -19,10 +21,10 @@ declare global {
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
+
 const store = createStore(
   rootReducer,
   composeEnhancers(
@@ -30,7 +32,8 @@ const store = createStore(
 ));
 
 
-sagaMiddleware.run(rootSaga)
+sagaMiddleware.run(loginFlowSaga)
+// sagaMiddleware.run(rootSaga)
 
 
 root.render(
